@@ -43,7 +43,9 @@ function setButton () {
     yellow = sprites.create(assets.image`yellowButton`, SpriteKind.Player)
     yellow.setPosition(100, 60)
 
-    mySprite.setPosition(0, 10)
+    level.setPosition(0, 10)
+    turn.setPosition(0, 20)
+
 }
 controller.left.onEvent(ControllerButtonEvent.Pressed, function () {
     if (userTurn) {
@@ -139,8 +141,27 @@ let currentGuess = 0
 let red: Sprite = null
 let userTurn = false
 let lights: number[] = []
-let mySprite: Sprite = null
-mySprite = sprites.create(img`
+let level: Sprite = null
+level = sprites.create(img`
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    . . . . . . . . . . . . . . . . 
+    `, 0)
+let turn: Sprite = null
+turn = sprites.create(img`
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
     . . . . . . . . . . . . . . . . 
@@ -166,5 +187,13 @@ userTurn = false
 addLight()
 lightUp()
 forever(function () {
-    mySprite.say("Level: " + lights.length)
+    level.say("Level: " + lights.length)
+    switch(userTurn) {
+        case true: 
+    turn.say("It is your turn.") 
+    break
+        default: 
+    turn.say("It is AI's turn.") 
+
+    }
 })
